@@ -1,0 +1,331 @@
+
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Nightlife Scanner | UK Club Events</title>
+
+  <style>
+
+    * { box-sizing: border-box; }
+
+    body {
+
+      margin: 0;
+
+      font-family: Arial, sans-serif;
+
+      background: #101018;
+
+      color: #fff;
+
+    }
+
+    header {
+
+      padding: 35px 20px;
+
+      text-align: center;
+
+      background: linear-gradient(135deg, #28104a, #101018);
+
+    }
+
+    header h1 {
+
+      margin: 0 0 10px;
+
+      font-size: clamp(30px, 6vw, 48px);
+
+    }
+
+    header p { color: #d1c4e9; }
+
+    main { max-width: 1000px; margin: auto; padding: 24px 16px; }
+
+    input, select {
+
+      width: 100%;
+
+      padding: 12px;
+
+      border-radius: 8px;
+
+      border: 1px solid #454553;
+
+      background: #20202c;
+
+      color: white;
+
+      margin: 5px 0 12px;
+
+    }
+
+    .filters {
+
+      display: grid;
+
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+
+      gap: 12px;
+
+    }
+
+    .events {
+
+      display: grid;
+
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+
+      gap: 16px;
+
+    }
+
+    .event {
+
+      padding: 20px;
+
+      background: #20202c;
+
+      border: 1px solid #383846;
+
+      border-radius: 12px;
+
+    }
+
+    .event h2 { margin-top: 0; font-size: 21px; }
+
+    .tag {
+
+      display: inline-block;
+
+      background: #50258a;
+
+      padding: 5px 9px;
+
+      border-radius: 20px;
+
+      font-size: 12px;
+
+    }
+
+    a { color: #d6b5ff; }
+
+    .source { font-size: 12px; color: #b8b8c8; }
+
+    footer { text-align: center; padding: 30px; color: #aaa; }
+
+  </style>
+
+</head>
+
+<body>
+
+  <header>
+
+    <h1>NIGHTLIFE SCANNER</h1>
+
+    <p>Discover club nights, DJs and dance music across the UK.</p>
+
+  </header>
+
+  <main>
+
+    <h2>Find your next night out</h2>
+
+    <div class="filters">
+
+      <label>Search events or DJs
+
+        <input id="search" placeholder="Search house, DJs, clubs...">
+
+      </label>
+
+      <label>Town or city
+
+        <select id="city">
+
+          <option value="">All UK locations</option>
+
+          <option>Edinburgh</option>
+
+          <option>Glasgow</option>
+
+          <option>London</option>
+
+          <option>Manchester</option>
+
+          <option>Birmingham</option>
+
+          <option>Fife</option>
+
+        </select>
+
+      </label>
+
+      <label>Music genre
+
+        <select id="genre">
+
+          <option value="">All genres</option>
+
+          <option>House</option>
+
+          <option>Disco</option>
+
+          <option>Techno</option>
+
+          <option>Trance</option>
+
+          <option>Drum and bass</option>
+
+        </select>
+
+      </label>
+
+    </div>
+
+    <p id="count" aria-live="polite"></p>
+
+    <div id="events" class="events"></div>
+
+  </main>
+
+  <footer>
+
+    Nightlife Scanner · UK club and DJ directory
+
+  </footer>
+
+  <script>
+
+    // Demonstration data only; these are not real event listings.
+
+    const events = [
+
+      {
+
+        title: "House Music Night",
+
+        city: "Edinburgh",
+
+        venue: "Example Club",
+
+        date: "2027-02-12",
+
+        dj: "Guest DJs",
+
+        genre: "House",
+
+        url: ""
+
+      },
+
+      {
+
+        title: "Disco Sessions",
+
+        city: "Glasgow",
+
+        venue: "Example Venue",
+
+        date: "2027-02-13",
+
+        dj: "Disco DJs",
+
+        genre: "Disco",
+
+        url: ""
+
+      },
+
+      {
+
+        title: "Underground Club Night",
+
+        city: "London",
+
+        venue: "Example Nightclub",
+
+        date: "2027-02-19",
+
+        dj: "Resident DJs",
+
+        genre: "Techno",
+
+        url: ""
+
+      }
+
+    ];
+
+    const search = document.getElementById("search");
+
+    const city = document.getElementById("city");
+
+    const genre = document.getElementById("genre");
+
+    function renderEvents() {
+
+      const query = search.value.toLowerCase();
+
+      const filtered = events.filter(event =>
+
+        [event.title, event.city, event.venue, event.dj, event.genre]
+
+          .some(value => value.toLowerCase().includes(query)) &&
+
+        (!city.value || event.city === city.value) &&
+
+        (!genre.value || event.genre === genre.value)
+
+      );
+
+      document.getElementById("count").textContent =
+
+        filtered.length + " demonstration event(s)";
+
+      document.getElementById("events").innerHTML = filtered.map(event => `
+
+        <article class="event">
+
+          <span class="tag">${event.genre}</span>
+
+          <h2>${event.title}</h2>
+
+          <p><strong>${event.city}</strong></p>
+
+          <p>${event.venue}</p>
+
+          <p>Date: ${event.date}</p>
+
+          <p>DJs: ${event.dj}</p>
+
+          <p class="source">Demonstration listing — not a verified event.</p>
+
+        </article>
+
+      `).join("");
+
+    }
+
+    [search, city, genre].forEach(control =>
+
+      control.addEventListener("input", renderEvents)
+
+    );
+
+    renderEvents();
+
+  </script>
+
+</body>
+
+</html>
