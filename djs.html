@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DJ Directory — Nightlife Scanner</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+    }
+
+    body {
+      background: #12121f;
+      color: #ffffff;
+      line-height: 1.6;
+    }
+
+    header {
+      background: linear-gradient(135deg, #2a1b47 0%, #1a1a2e 100%);
+      padding: 2.5rem 2rem;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    header p {
+      color: #b8b8d4;
+      font-size: 1rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    nav {
+      background: #1a1a2e;
+      padding: 1rem 2rem;
+      text-align: center;
+      border-bottom: 1px solid #2e2e4a;
+    }
+
+    nav a {
+      color: #a29bfe;
+      text-decoration: none;
+      margin: 0 1rem;
+      font-weight: 500;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2.5rem 2rem;
+    }
+
+    .intro-box {
+      background: #1c1c30;
+      border: 1px solid #2e2e4a;
+      border-radius: 10px;
+      padding: 1.5rem;
+      margin-bottom: 2.5rem;
+      text-align: center;
+    }
+
+    .intro-box h2 {
+      font-size: 1.3rem;
+      margin-bottom: 0.8rem;
+      color: #e0e0ff;
+    }
+
+    .intro-box p {
+      color: #a0a0c0;
+      margin-bottom: 1rem;
+    }
+
+    .btn {
+      display: inline-block;
+      background: #6c5ce7;
+      color: #fff;
+      padding: 0.7rem 1.4rem;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+
+    .btn:hover {
+      background: #5a4cd1;
+    }
+
+    .dj-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.2rem;
+    }
+
+    .dj-card {
+      background: #1c1c30;
+      border: 1px solid #2e2e4a;
+      border-radius: 10px;
+      padding: 1.3rem;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .dj-card:hover {
+      transform: translateY(-3px);
+      border-color: #6c5ce7;
+    }
+
+    .dj-name {
+      font-size: 1.15rem;
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+      color: #ffffff;
+    }
+
+    .dj-location {
+      font-size: 0.85rem;
+      color: #8888a8;
+      margin-bottom: 0.6rem;
+    }
+
+    .dj-genres {
+      font-size: 0.8rem;
+      color: #a29bfe;
+      margin-bottom: 0.9rem;
+    }
+
+    .dj-link {
+      font-size: 0.9rem;
+      color: #a29bfe;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .dj-link:hover {
+      text-decoration: underline;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 3rem;
+      color: #707090;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: #606080;
+      font-size: 0.85rem;
+      border-top: 1px solid #2e2e4a;
+      margin-top: 3rem;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>🎧 DJ DIRECTORY</h1>
+    <p>House, Disco House & Underground DJs across Scotland</p>
+  </header>
+
+  <nav>
+    <a href="index.html">Events</a>
+    <a href="djs.html">DJ Directory</a>
+  </nav>
+
+  <main>
+    <div class="intro-box">
+      <h2>Are you a DJ playing in Scotland?</h2>
+      <p>Create your free professional profile on Backstage.dj, then send us your link to be featured here. Promoters and club bookers find you through Nightlife Scanner!</p>
+      <a href="https://backstage.dj" target="_blank" class="btn">Create Your Free Profile →</a>
+    </div>
+
+    <h2 style="margin-bottom: 1.2rem;">Featured DJs</h2>
+    
+    <div class="dj-grid" id="djList">
+      <!-- Your first 3 example DJs - replace these with real submissions! -->
+      
+      <div class="dj-card">
+        <div class="dj-name">[ DJ Name ]</div>
+        <div class="dj-location">📍 Edinburgh</div>
+        <div class="dj-genres">Deep House · Disco House</div>
+        <a href="https://backstage.dj/your-dj-name" target="_blank" class="dj-link">View Profile & Book →</a>
+      </div>
+
+      <div class="dj-card">
+        <div class="dj-name">[ DJ Name ]</div>
+        <div class="dj-location">📍 Glasgow</div>
+        <div class="dj-genres">Underground · Tech House</div>
+        <a href="https://backstage.dj/your-dj-name" target="_blank" class="dj-link">View Profile & Book →</a>
+      </div>
+
+      <div class="dj-card">
+        <div class="dj-name">[ DJ Name ]</div>
+        <div class="dj-location">📍 Fife</div>
+        <div class="dj-genres">Disco House · Soulful House</div>
+        <a href="https://backstage.dj/your-dj-name" target="_blank" class="dj-link">View Profile & Book →</a>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    Nightlife Scanner · UK club and DJ directory
+  </footer>
+
+</body>
+</html>
