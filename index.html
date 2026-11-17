@@ -1,303 +1,267 @@
-
-
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
-
   <meta charset="UTF-8">
-
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <title>Nightlife Scanner | UK Club Events</title>
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nightlife Scanner — UK House, Disco & Underground Events</title>
   <style>
-
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+    }
 
     body {
-
-      margin: 0;
-
-      font-family: Arial, sans-serif;
-
-      background: #101018;
-
-      color: #fff;
-
+      background: #12121f;
+      color: #ffffff;
+      line-height: 1.6;
     }
 
     header {
-
-      padding: 35px 20px;
-
+      background: linear-gradient(135deg, #2a1b47 0%, #1a1a2e 100%);
+      padding: 3rem 2rem;
       text-align: center;
-
-      background: linear-gradient(135deg, #28104a, #101018);
-
     }
 
-    header h1 {
-
-      margin: 0 0 10px;
-
-      font-size: clamp(30px, 6vw, 48px);
-
+    h1 {
+      font-size: 2.8rem;
+      margin-bottom: 0.5rem;
+      letter-spacing: 2px;
     }
 
-    header p { color: #d1c4e9; }
+    header p {
+      color: #b8b8d4;
+      font-size: 1.1rem;
+    }
 
-    main { max-width: 1000px; margin: auto; padding: 24px 16px; }
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    .search-section {
+      margin-bottom: 2.5rem;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: #e0e0ff;
+    }
+
+    .search-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
 
     input, select {
-
-      width: 100%;
-
-      padding: 12px;
-
-      border-radius: 8px;
-
-      border: 1px solid #454553;
-
-      background: #20202c;
-
-      color: white;
-
-      margin: 5px 0 12px;
-
+      padding: 0.85rem 1rem;
+      border: 1px solid #3a3a5c;
+      border-radius: 6px;
+      background: #1e1e30;
+      color: #fff;
+      font-size: 0.95rem;
     }
 
-    .filters {
-
-      display: grid;
-
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-
-      gap: 12px;
-
+    input::placeholder {
+      color: #8888a8;
     }
 
-    .events {
+    input:focus, select:focus {
+      outline: none;
+      border-color: #6c5ce7;
+    }
 
+    .results-info {
+      color: #a0a0c0;
+      margin-bottom: 1.2rem;
+      font-size: 0.95rem;
+    }
+
+    .events-grid {
       display: grid;
-
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-
-      gap: 16px;
-
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.2rem;
     }
 
     .event {
-
-      padding: 20px;
-
-      background: #20202c;
-
-      border: 1px solid #383846;
-
-      border-radius: 12px;
-
+      background: #1c1c30;
+      border-radius: 10px;
+      padding: 1.3rem;
+      border: 1px solid #2e2e4a;
+      transition: transform 0.2s, border-color 0.2s;
     }
 
-    .event h2 { margin-top: 0; font-size: 21px; }
+    .event:hover {
+      transform: translateY(-3px);
+      border-color: #6c5ce7;
+    }
 
     .tag {
-
       display: inline-block;
-
-      background: #50258a;
-
-      padding: 5px 9px;
-
+      background: #6c5ce7;
+      color: #fff;
+      font-size: 0.75rem;
+      padding: 0.25rem 0.7rem;
       border-radius: 20px;
-
-      font-size: 12px;
-
+      margin-bottom: 0.8rem;
     }
 
-    a { color: #d6b5ff; }
+    .event h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+      color: #ffffff;
+    }
 
-    .source { font-size: 12px; color: #b8b8c8; }
+    .event p {
+      font-size: 0.85rem;
+      color: #a8a8c8;
+      margin-bottom: 0.8rem;
+    }
 
-    footer { text-align: center; padding: 30px; color: #aaa; }
+    .event a {
+      color: #a29bfe;
+      font-size: 0.9rem;
+      text-decoration: none;
+      font-weight: 500;
+    }
 
+    .event a:hover {
+      text-decoration: underline;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 3rem;
+      color: #707090;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: #606080;
+      font-size: 0.85rem;
+    }
+
+    @media (max-width: 768px) {
+      .search-grid {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
-
 </head>
-
 <body>
 
   <header>
-
     <h1>NIGHTLIFE SCANNER</h1>
-
     <p>Discover club nights, DJs and dance music across the UK.</p>
-
   </header>
 
   <main>
-
-    <h2>Find your next night out</h2>
-
-    <div class="filters">
-
-      <label>Search events or DJs
-
-        <input id="search" placeholder="Search house, DJs, clubs...">
-
-      </label>
-
-      <label>Town or city
-
+    <section class="search-section">
+      <h2>Find your next night out</h2>
+      <div class="search-grid">
+        <input type="text" id="search" placeholder="Search house, DJs, clubs...">
         <select id="city">
-
           <option value="">All UK locations</option>
-
-          <option>Edinburgh</option>
-
-          <option>Glasgow</option>
-
-          <option>London</option>
-
-          <option>Manchester</option>
-
-          <option>Birmingham</option>
-
-          <option>Fife</option>
-
+          <option value="Edinburgh">Edinburgh</option>
+          <option value="Glasgow">Glasgow</option>
+          <option value="Fife">Fife</option>
         </select>
-
-      </label>
-
-      <label>Music genre
-
         <select id="genre">
-
           <option value="">All genres</option>
-
-          <option>House</option>
-
-          <option>Disco</option>
-
-          <option>Techno</option>
-
-          <option>Trance</option>
-
-          <option>Drum and bass</option>
-
+          <option value="House">House</option>
+          <option value="Disco House">Disco House</option>
+          <option value="Underground">Underground</option>
         </select>
+      </div>
+      <div class="results-info" id="count">0 verified event(s) listed</div>
+    </section>
 
-      </label>
-
+    <div id="events" class="events-grid">
+      <div class="empty-state">Loading events...</div>
     </div>
-
-    <p id="count" aria-live="polite"></p>
-
-    <div id="events" class="events"></div>
-
   </main>
 
   <footer>
-
     Nightlife Scanner · UK club and DJ directory
-
   </footer>
 
 <script>
-  let events = [];
+const API_URL = "https://fnightlife-scanner-api.nnr2f4m2jh.workers.dev/api/events";
+let allEvents = [];
 
-  const search = document.getElementById("search");
-  const city = document.getElementById("city");
-  const genre = document.getElementById("genre");
-  const count = document.getElementById("count");
-  const eventsContainer = document.getElementById("events");
+const search = document.getElementById("search");
+const city = document.getElementById("city");
+const genre = document.getElementById("genre");
+const output = document.getElementById("events");
 
-  function escapeHTML(value) {
-    return String(value ?? "").replace(/[&<>"']/g, char => ({
-      "&": "&amp;",
-      "<": "&lt;",
-      ">": "&gt;",
-      '"': "&quot;",
-      "'": "&#39;"
-    })[char]);
+async function loadEvents() {
+  try {
+    const res = await fetch(API_URL);
+    const data = await res.json();
+    allEvents = data.events || [];
+  } catch (err) {
+    console.log("API loading error:", err);
+    allEvents = [];
   }
+  render();
+}
 
-  function renderEvents() {
-    const query = search.value.toLowerCase().trim();
-
-    const filtered = events.filter(event => {
-      const searchable = [
-        event.title,
-        event.city,
-        event.venue,
-        event.dj,
-        event.genre
-      ].join(" ").toLowerCase();
-
-      return searchable.includes(query) &&
-        (!city.value || event.city === city.value) &&
-        (!genre.value || event.genre === genre.value);
-    });
-
-    count.textContent = filtered.length +
-      " verified event(s) listed";
-
-    if (filtered.length === 0) {
-      eventsContainer.innerHTML =
-        "<p>No events found. Check back for new listings.</p>";
-      return;
-    }
-
-    eventsContainer.innerHTML = filtered.map(event => {
-      const eventLink = /^https?:\/\//i.test(event.url || "")
-        ? `<p><a href="${escapeHTML(event.url)}" target="_blank" rel="noopener noreferrer">View original event</a></p>`
-        : "";
-
-      return `
-        <article class="event">
-          <span class="tag">${escapeHTML(event.genre)}</span>
-          <h2>${escapeHTML(event.title)}</h2>
-          <p><strong>${escapeHTML(event.city)}</strong></p>
-          <p>${escapeHTML(event.venue)}</p>
-          <p>Date: ${escapeHTML(event.date)}</p>
-          <p>DJs: ${escapeHTML(event.dj)}</p>
-          ${eventLink}
-          <p class="source">Source: ${escapeHTML(event.source || "Event listing")}</p>
-        </article>
-      `;
-    }).join("");
-  }
-
-  async function loadEvents() {
-    count.textContent = "Loading events...";
-
-    try {
-      const response = await fetch("./events.json", {
-        cache: "no-store"
-      });
-
-      if (!response.ok) {
-        throw new Error("Could not load event database");
-      }
-
-      const data = await response.json();
-      events = Array.isArray(data.events) ? data.events : [];
-
-      renderEvents();
-    } catch (error) {
-      count.textContent = "Unable to load events. Please try again later.";
-      eventsContainer.innerHTML = "";
-    }
-  }
-
-  [search, city, genre].forEach(control => {
-    control.addEventListener("input", renderEvents);
-    control.addEventListener("change", renderEvents);
+function render() {
+  const q = search.value.toLowerCase();
+  const results = allEvents.filter(e => {
+    const text = [e.title, e.city, e.venue, e.genre].join(" ").toLowerCase();
+    return text.includes(q) &&
+      (!city.value || e.city === city.value) &&
+      (!genre.value || e.genre === genre.value);
   });
 
-  loadEvents();
+  document.getElementById("count").textContent =
+    results.length + " verified event(s) listed";
+
+  output.replaceChildren();
+
+  if (results.length === 0) {
+    output.innerHTML = `<div class="empty-state">No events found. Check back for new listings.</div>`;
+    return;
+  }
+
+  results.forEach(e => {
+    const card = document.createElement("article");
+    card.className = "event";
+
+    const tag = document.createElement("span");
+    tag.className = "tag";
+    tag.textContent = e.genre;
+
+    const title = document.createElement("h3");
+    title.textContent = e.title;
+
+    const details = document.createElement("p");
+    details.textContent = e.city + " · " + e.venue + " · " + e.date;
+
+    const link = document.createElement("a");
+    link.href = e.url || "#";
+    link.target = "_blank";
+    link.textContent = "Tickets & details →";
+
+    card.append(tag, title, details, link);
+    output.appendChild(card);
+  });
+}
+
+[search, city, genre].forEach(el =>
+  el.addEventListener("input", render)
+);
+
+// Load on startup
+loadEvents();
 </script>
 
-
-  
+</body>
+</html>
